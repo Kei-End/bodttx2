@@ -3,120 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boardroom TTX: Cyber Crisis Simulator</title>
-    <!-- Chart.js for Radar Graphs -->
+    <title>Boardroom TTX</title>
+    <link rel="stylesheet" href="css/boardroom.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        :root {
-            --bg-color: #f4f6f8;
-            --card-bg: #ffffff;
-            --text-primary: #1a202c;
-            --text-secondary: #4a5568;
-            --accent-blue: #3182ce;
-            --accent-red: #e53e3e;
-            --accent-green: #38a169;
-            --border-radius: 12px;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        }
+</head>
+<body>
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-        }
+    <header class="global-header">
+        <div class="logo">Cyber Crisis TTX</div>
+        <button class="reset-btn" onclick="resetSession()">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+                <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+            </svg>
+            RESET SESSION
+        </button>
+    </header>
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+    <main class="simulator-layout">
+        
+        <aside class="left-panel">
+            <div class="user-context">
+                <h2 id="participant-name">CEO</h2>
+                <p id="scenario-title">Double Extortion & Targeted Coercion</p>
+                <div class="progress-bar"><div class="progress-fill" style="width: 25%;"></div></div>
+                <p class="phase-tracker" id="phase-tracker">Phase 1 of 4</p>
+            </div>
 
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #e2e8f0;
-        }
+            <div class="enterprise-lenses section-box">
+                <h3>Enterprise Risk</h3>
+                <ul class="metric-list">
+                    <li>Shareholder Confidence <span class="status status-caution">Strained</span></li>
+                    <li>Legal Exposure <span class="status status-high">High</span></li>
+                    <li>Public Trust <span class="status status-critical">Critical</span></li>
+                    <li>Monetary Loss <span class="status status-ok">Controlled</span></li>
+                </ul>
+            </div>
 
-        h1 { font-size: 1.5rem; margin-bottom: 5px; }
-        .subtitle { font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; }
+            <div class="bi-stats section-box">
+                <h3>Decision Analytics</h3>
+                <ul class="stat-list">
+                    <li>Avg Time: <span id="stat-time">--</span></li>
+                    <li>Missed Facts: <span id="stat-facts">0</span></li>
+                    <li>Transparency Gaps: <span id="stat-gaps">0</span></li>
+                </ul>
+            </div>
+        </aside>
 
-        /* Cards */
-        .card {
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            padding: 24px;
-            margin-bottom: 20px;
-        }
+        <section class="center-canvas">
+            <div id="scenario-prompt-container" class="prompt-box">
+                <p id="scenario-prompt">Loading scenario prompt...</p>
+            </div>
 
-        /* Scenario Display */
-        .scenario-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        .badge {
-            background: #ebf8ff;
-            color: var(--accent-blue);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
+            <div id="options-container" class="options-wrapper">
+                </div>
 
-        /* Options */
-        .option-btn {
-            width: 100%;
-            text-align: left;
-            background: white;
-            border: 1px solid #cbd5e0;
-            border-radius: 8px;
-            padding: 16px;
-            margin-bottom: 12px;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-size: 1rem;
-        }
-        .option-btn:hover {
-            border-color: var(--accent-blue);
-            background: #ebf8ff;
-        }
-        .option-btn:active {
-            transform: scale(0.99);
-        }
+            <div class="action-footer">
+                <button id="action-btn" class="primary-btn" disabled>Next</button>
+            </div>
+        </section>
 
-        /* Detriment Panel (Act 854) */
-        .detriment-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-top: 15px;
-        }
-        .detriment-item {
-            background: #fff5f5;
-            padding: 10px;
-            border-radius: 6px;
-            border-left: 4px solid var(--accent-red);
-            font-size: 0.85rem;
-        }
-        .detriment-label { font-weight: 600; display: block; margin-bottom: 2px; }
-        .detriment-score { float: right; font-weight: bold; }
+        <aside class="right-panel section-box">
+            <h3>National Impact (Act 854)</h3>
+            <ul class="pillar-list" id="pillar-list">
+                <li>Security <span class="status status-ok">Controlled</span></li>
+                <li>Defense <span class="status status-ok">Controlled</span></li>
+                <li>Foreign Relations <span class="status status-ok">Controlled</span></li>
+                <li>Economy <span class="status status-ok">Controlled</span></li>
+                <li>Public Health <span class="status status-ok">Controlled</span></li>
+                <li>Public Safety <span class="status status-ok">Controlled</span></li>
+                <li>Public Order <span class="status status-ok">Controlled</span></li>
+                <li>Gov. Effectiveness <span class="status status-ok">Controlled</span></li>
+            </ul>
+        </aside>
 
-        /* Dashboard */
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-        }
-        @media (min-width: 768px) {
-            .dashboard-grid { grid-template-columns: 1fr 1fr; }
-        }
+    </main>
 
-        .chart-container {
-            position: relative;
-            height: 30
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
