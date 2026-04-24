@@ -1,0 +1,165 @@
+{
+  "scenarioId": "ncii-ransomware-wildcard-001",
+  "title": "Double Extortion & Targeted Coercion",
+  "theme": "Ransomware with physical escalation and media leak",
+  "sector": "essential-services",
+  "audience": ["CEO", "Board"],
+  "questionCount": 4,
+  "questions": [
+    {
+      "id": "q1",
+      "phase": "Detection & Initial Triage",
+      "prompt": "Core operational systems are locked with a ransomware note demanding $5M USD. The IT team recommends immediate total network isolation, which will halt all public-facing essential services. Do you isolate now, or keep critical systems running while triage continues?",
+      "options": [
+        {
+          "label": "Authorize immediate total isolation",
+          "controlGain": 4,
+          "sideEffects": {
+            "economy": 2,
+            "publicOrder": 1,
+            "publicTrust": 2,
+            "monetaryLoss": 2,
+            "shareholderConfidence": 1
+          },
+          "capabilityHints": {
+            "decisiveness": ["Strong: immediate containment chosen over paralysis"],
+            "situationalAwareness": ["Adequate: recognizes the immediate threat spread"]
+          },
+          "consequenceText": "Containment improved significantly, but the sudden public service outage has sparked immediate media speculation and customer frustration."
+        },
+        {
+          "label": "Maintain critical services; isolate only confirmed infected segments",
+          "controlGain": 1,
+          "sideEffects": {
+            "security": 4,
+            "publicSafety": 1,
+            "publicTrust": -1,
+            "legalExposure": 2,
+            "monetaryLoss": 1
+          },
+          "capabilityHints": {
+            "decisiveness": ["Weak: delays critical containment"],
+            "ethicalSafetyImpact": ["Partial: prioritizes convenience over absolute containment"]
+          },
+          "consequenceText": "Service continuity is temporarily maintained, but the threat actor uses the active network to encrypt secondary backups. Containment is lost."
+        }
+      ]
+    },
+    {
+      "id": "q2",
+      "phase": "Escalation & Double Extortion",
+      "prompt": "The threat actor provides proof of exfiltration, including sensitive national data and customer PII. They threaten to publish it in 24 hours if the ransom is not paid. How do you respond?",
+      "options": [
+        {
+          "label": "Refuse payment, notify NACSA, and prepare public breach notification",
+          "controlGain": 2,
+          "sideEffects": {
+            "publicSafety": 1,
+            "publicOrder": 2,
+            "publicTrust": 3,
+            "shareholderConfidence": 3,
+            "legalExposure": 1
+          },
+          "capabilityHints": {
+            "alignmentWithPrinciples": ["Strong: adheres to no-pay stance and regulatory reporting"],
+            "transparency": ["Anticipatory: proactive public notification planned"]
+          },
+          "consequenceText": "Regulatory compliance is maintained and the government supports your stance, but the impending data leak causes public anxiety and investor panic."
+        },
+        {
+          "label": "Open back-channel negotiations to stall the deadline while legal and PR teams prepare",
+          "controlGain": 3,
+          "sideEffects": {
+            "security": 1,
+            "foreignRelations": 1,
+            "legalExposure": 4,
+            "publicTrust": 1
+          },
+          "capabilityHints": {
+            "alignmentWithPrinciples": ["Harmful: risks violating anti-terror financing laws"],
+            "ethicalSafetyImpact": ["Partial: attempts to buy time but risks funding criminality"]
+          },
+          "consequenceText": "You buy an extra 12 hours, but intelligence agencies intercept the back-channel comms, straining your relationship with the government."
+        }
+      ]
+    },
+    {
+      "id": "q3",
+      "phase": "Wildcard: Targeted Coercion & Leak",
+      "prompt": "WILDCARD: A major news outlet just published an insider leak detailing the breach. Simultaneously, several board members receive encrypted messages containing home addresses and photos of their children, threatening physical harm if police are involved. The press is demanding a statement.",
+      "options": [
+        {
+          "label": "Prioritize family safety: Notify law enforcement quietly, issue a vague holding statement to the press, and secure physical protection.",
+          "controlGain": 3,
+          "sideEffects": {
+            "publicSafety": 0,
+            "publicOrder": 1,
+            "publicTrust": 4,
+            "shareholderConfidence": 2,
+            "monetaryLoss": 0
+          },
+          "capabilityHints": {
+            "ethicalSafetyImpact": ["Strong: prioritizes life safety above reputation"],
+            "transparency": ["Weak: protects operations but fails public clarity"]
+          },
+          "consequenceText": "Families are secured by authorities. However, the vague press statement allows the media narrative to spiral, severely damaging public trust."
+        },
+        {
+          "label": "Full transparency: Hold a press conference acknowledging the breach, the extortion, and the threats, asking for public resilience.",
+          "controlGain": 1,
+          "sideEffects": {
+            "publicSafety": 3,
+            "publicOrder": 3,
+            "publicTrust": -2,
+            "shareholderConfidence": 1,
+            "legalExposure": 2
+          },
+          "capabilityHints": {
+            "transparency": ["Anticipatory: full, open communication of knowns"],
+            "ethicalSafetyImpact": ["Harmful: escalates physical danger to families by making it a public spectacle"]
+          },
+          "consequenceText": "Public trust surges due to your unprecedented honesty, but law enforcement warns that publicizing the physical threats has severely compromised family security operations."
+        }
+      ]
+    },
+    {
+      "id": "q4",
+      "phase": "Containment & Resolution",
+      "prompt": "The threat actor has dumped a portion of the data online to force your hand. The national authorities advise against payment, but your legal team warns of massive class-action lawsuits based on the leaked PII. What is your final strategic posture?",
+      "options": [
+        {
+          "label": "Hold the line: Refuse payment, fully cooperate with the government, and deploy a comprehensive public support package for victims.",
+          "controlGain": 5,
+          "sideEffects": {
+            "economy": 2,
+            "governmentEffectiveness": -2,
+            "monetaryLoss": 4,
+            "legalExposure": 3,
+            "publicTrust": -1
+          },
+          "capabilityHints": {
+            "alignmentWithPrinciples": ["Strong: aligns with government and long-term risk appetite"],
+            "decisiveness": ["Strong: accountable, final call made under extreme pressure"]
+          },
+          "consequenceText": "You face immediate, heavy financial losses from lawsuits and victim support costs, but you successfully align with national defense priorities and slowly rebuild systemic trust."
+        },
+        {
+          "label": "Capitulate quietly: Pay the ransom through a third-party negotiator to halt further data dumps and mitigate lawsuit damage.",
+          "controlGain": 2,
+          "sideEffects": {
+            "security": 4,
+            "defence": 2,
+            "governmentEffectiveness": 3,
+            "legalExposure": 4,
+            "monetaryLoss": 2
+          },
+          "capabilityHints": {
+            "alignmentWithPrinciples": ["Harmful: violates national directives and funds threat actors"],
+            "ethicalSafetyImpact": ["Weak: prioritizes monetary loss over national security"]
+          },
+          "consequenceText": "The immediate bleeding stops, but the threat actor retains copies of your data. You are later heavily penalized by regulators for violating national cyber protocols."
+        }
+      ]
+    }
+  ]
+}
