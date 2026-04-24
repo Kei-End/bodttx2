@@ -6,6 +6,7 @@ export function getDefaultState() {
     currentPhaseIndex: 0,
     decisions: [], 
     act854Pillars: { security: 0, defence: 0, foreignRelations: 0, economy: 0, publicHealth: 0, publicSafety: 0, publicOrder: 0, governmentEffectiveness: 0 },
+    enterpriseRisk: { shareholderConfidence: 0, legalExposure: 0, publicTrust: 0, monetaryLoss: 0 },
     capabilityScores: { situationalAwareness: 0, alignmentWithPrinciples: 0, ethicalSafetyImpact: 0, decisiveness: 0, transparency: 0 }
   };
 }
@@ -15,8 +16,16 @@ export function initSession(scenarioId) {
   if (!state || state.scenarioId !== scenarioId) {
     state = getDefaultState();
     state.scenarioId = scenarioId;
-    saveSessionState(state);
+  } else {
+    state = {
+      ...getDefaultState(),
+      ...state,
+      act854Pillars: { ...getDefaultState().act854Pillars, ...(state.act854Pillars || {}) },
+      enterpriseRisk: { ...getDefaultState().enterpriseRisk, ...(state.enterpriseRisk || {}) },
+      capabilityScores: { ...getDefaultState().capabilityScores, ...(state.capabilityScores || {}) }
+    };
   }
+  saveSessionState(state);
   return state;
 }
 

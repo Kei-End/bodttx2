@@ -22,6 +22,10 @@ export function processDecision(selectedOption, questionData) {
             let currentStress = state.act854Pillars[pillar];
             let newStress = currentStress + impact - (controlGain * 0.5);
             state.act854Pillars[pillar] = Math.max(0, Math.min(10, newStress));
+        } else if (state.enterpriseRisk[pillar] !== undefined) {
+            let currentRisk = state.enterpriseRisk[pillar];
+            let newRisk = currentRisk + impact - (controlGain * 0.25);
+            state.enterpriseRisk[pillar] = Math.max(0, Math.min(10, newRisk));
         }
     }
 
@@ -47,7 +51,7 @@ export function processDecision(selectedOption, questionData) {
 }
 
 function updateDashboardUI(state) {
-    const getStatusHTML = (val) => {
+    const getStatusClassAndText = (val) => {
         if (val >= 8) return `<span class="status status-critical">Critical</span>`;
         if (val >= 5) return `<span class="status status-high">Severe</span>`;
         if (val >= 3) return `<span class="status status-caution">Strained</span>`;
@@ -57,14 +61,26 @@ function updateDashboardUI(state) {
     const rightPanel = document.getElementById('pillar-list');
     if (rightPanel) {
         rightPanel.innerHTML = `
-            <li>Security ${getStatusHTML(state.act854Pillars.security)}</li>
-            <li>Defense ${getStatusHTML(state.act854Pillars.defence)}</li>
-            <li>Foreign Relations ${getStatusHTML(state.act854Pillars.foreignRelations)}</li>
-            <li>Economy ${getStatusHTML(state.act854Pillars.economy)}</li>
-            <li>Public Health ${getStatusHTML(state.act854Pillars.publicHealth)}</li>
-            <li>Public Safety ${getStatusHTML(state.act854Pillars.publicSafety)}</li>
-            <li>Public Order ${getStatusHTML(state.act854Pillars.publicOrder)}</li>
-            <li>Gov. Effectiveness ${getStatusHTML(state.act854Pillars.governmentEffectiveness)}</li>
+            <li>Security ${getStatusClassAndText(state.act854Pillars.security)}</li>
+            <li>Defense ${getStatusClassAndText(state.act854Pillars.defence)}</li>
+            <li>Foreign Relations ${getStatusClassAndText(state.act854Pillars.foreignRelations)}</li>
+            <li>Economy ${getStatusClassAndText(state.act854Pillars.economy)}</li>
+            <li>Public Health ${getStatusClassAndText(state.act854Pillars.publicHealth)}</li>
+            <li>Public Safety ${getStatusClassAndText(state.act854Pillars.publicSafety)}</li>
+            <li>Public Order ${getStatusClassAndText(state.act854Pillars.publicOrder)}</li>
+            <li>Gov. Effectiveness ${getStatusClassAndText(state.act854Pillars.governmentEffectiveness)}</li>
         `;
+    }
+
+    const enterpriseRiskBindings = [
+        ['shareholderConfidence', 'risk-shareholderConfidence'],
+        ['legalExposure', 'risk-legalExposure'],
+        ['publicTrust', 'risk-publicTrust'],
+        ['monetaryLoss', 'risk-monetaryLoss']
+    ];
+
+    for (const [riskKey, elementId] of enterpriseRiskBindings) {
+        const node = document.getElementById(elementId);
+        if (node) node.outerHTML = getStatusClassAndText(state.enterpriseRisk[riskKey]).replace('<span class="status', `<span id="${elementId}" class="status`);
     }
 }

@@ -71,6 +71,7 @@ window.resetSession = function() {
         state.currentPhaseIndex = 0;
         state.decisions = [];
         state.act854Pillars = { security: 0, defence: 0, foreignRelations: 0, economy: 0, publicHealth: 0, publicSafety: 0, publicOrder: 0, governmentEffectiveness: 0 };
+        state.enterpriseRisk = { shareholderConfidence: 0, legalExposure: 0, publicTrust: 0, monetaryLoss: 0 };
         state.capabilityScores = { situationalAwareness: 0, alignmentWithPrinciples: 0, ethicalSafetyImpact: 0, decisiveness: 0, transparency: 0 };
         saveSessionState(state);
         loadScenario(state.scenarioId + ".json");
